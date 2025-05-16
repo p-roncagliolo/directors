@@ -18,8 +18,10 @@ public class DirectorController {
         this.directorService = directorService;
     }
 
-    @GetMapping("/api/directors")
-    public ResponseEntity<List<String>> getDirectors(@RequestParam int threshold) {
+    public ResponseEntity<List<String>> getDirectors(@RequestParam(required=true, defaultValue="0") int threshold) {
+        if (threshold <= 0) {
+            return ResponseEntity.badRequest().body(List.of("Threshold must be a greater than 0"));
+        }
         List<String> directors = directorService.getDirectors(threshold);
         return ResponseEntity.ok(directors);
     }
