@@ -20,7 +20,8 @@ class DirectorControllerTest {
     private DirectorService directorService;
 
     final List<String> mockDirectors = Arrays.asList("Director A", "Director B");
-
+    final List<String> mockMessage = Arrays.asList("Threshold must be a greater than 0");
+    
     @BeforeEach
     void setUp() {
         // Create a mock implementation of the service
@@ -43,5 +44,21 @@ class DirectorControllerTest {
         // Verify the response
         assertEquals(200, response.getStatusCodeValue());
         assertEquals(mockDirectors, response.getBody());
+    }
+
+    @Test
+    void testGetDirectors_NonZero() {
+        MockitoAnnotations.openMocks(this);
+
+        // Mock service response
+        
+        when(directorService.getDirectors(0)).thenReturn(mockMessage);
+
+        // Call the controller method
+        ResponseEntity<List<String>> response = directorController.getDirectors(0);
+
+        // Verify the response
+        assertEquals(400, response.getStatusCodeValue());
+        assertEquals(mockMessage, response.getBody());
     }
 }
