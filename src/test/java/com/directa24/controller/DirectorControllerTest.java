@@ -35,7 +35,6 @@ class DirectorControllerTest {
         MockitoAnnotations.openMocks(this);
 
         // Mock service response
-        
         when(directorService.getDirectors(1)).thenReturn(mockDirectors);
 
         // Call the controller method
@@ -51,7 +50,6 @@ class DirectorControllerTest {
         MockitoAnnotations.openMocks(this);
 
         // Mock service response
-        
         when(directorService.getDirectors(0)).thenReturn(mockMessage);
 
         // Call the controller method
